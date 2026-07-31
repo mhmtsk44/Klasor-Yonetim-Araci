@@ -30,7 +30,7 @@ Windows + PowerShell 5.1 uyumlu + Yönetici yetkisi (otomatik UAC yükseltme ist
 
 ```powershell
 iwr "https://raw.githubusercontent.com/mhmtsk44/Klasor-Yonetim-Araci/refs/heads/main/Klasor_Yonetim_Araci.ps1" -OutFile "$env:TEMP\Klasor_Yonetim_Araci.ps1"
-& "$env:TEMP\Klasor_Yonetim_Araci.ps1"
+powershell -ExecutionPolicy Bypass -File "$env:TEMP\Klasor_Yonetim_Araci.ps1"
 ```
 
 > ⚠️ Sistem düzeyinde değişiklikler yapar (kullanıcı hesabı, güvenlik duvarı, ağ paylaşımı). Kaynağı doğrulamadan çalıştırmayın.
