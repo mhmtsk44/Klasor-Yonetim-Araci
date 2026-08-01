@@ -29,12 +29,12 @@
 
 ## 🚀 Kullanım
 
-Betiği bilgisayarınıza manuel olarak indirmekle uğraşmadan, doğrudan PowerShell üzerinden aşağıdaki komutu çalıştırarak anında kullanabilirsiniz:
+- Betiği bilgisayarınıza manuel olarak indirmekle uğraşmadan, doğrudan PowerShell üzerinden aşağıdaki komutu çalıştırarak anında kullanabilirsiniz:
 
 ```powershell
-# ⚠️ Önemli Not (Yönetici Yetkisi):
-# Komutun sorunsuz çalışabilmesi ve gerekli sistem izinlerini alabilmesi için PowerShell'i Yönetici olarak çalıştırmanız gerekmektedir.
-# Bunun için: Başlat menüsüne PowerShell yazın, üzerine sağ tıklayıp "Yönetici olarak çalıştır" (Run as Administrator) seçeneğini seçtikten sonra aşağıdaki komutu yapıştırın:
+- ⚠️ Önemli Not (Yönetici Yetkisi):
+- Komutun sorunsuz çalışabilmesi ve gerekli sistem izinlerini alabilmesi için PowerShell'i Yönetici olarak çalıştırmanız gerekmektedir.
+- Bunun için: Başlat menüsüne PowerShell yazın, üzerine sağ tıklayıp "Yönetici olarak çalıştır" (Run as Administrator) seçeneğini seçtikten sonra aşağıdaki komutu yapıştırın:
 
 irm [https://raw.githubusercontent.com/mhmtsk44/Klasor-Yonetim-Araci/refs/heads/main/Klasor_Yonetim_Araci.ps1](https://raw.githubusercontent.com/mhmtsk44/Klasor-Yonetim-Araci/refs/heads/main/Klasor_Yonetim_Araci.ps1) | iex
 
