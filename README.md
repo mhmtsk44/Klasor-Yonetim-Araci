@@ -54,7 +54,7 @@ iwr "https://raw.githubusercontent.com/mhmtsk44/Klasor-Yonetim-Araci/refs/heads/
 
 ## 📄 Lisans
 
-Bu proje olduğu gibi (as-is) sunulmuştur. Serbestçe kullanılabilir, değiştirilebilir ve dağıtılabilir. Kullanım sorumluluğu kullanıcıya aittir.
+Bu proje [MIT Lisansı](./LICENSE) ile lisanslanmıştır — serbestçe kullanabilir, değiştirebilir ve dağıtabilirsiniz; yazılım "olduğu gibi", herhangi bir garanti verilmeksizin sunulur.
 
 ---
 
