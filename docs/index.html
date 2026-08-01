@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Çok Amaçlı Klasör Yönetim Aracı</title>
+    <script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=e9ofz1ysB_ihXFTqvaiFdURjzL1BC4RoDp4jwkR_24KqBpbaBU-6r56SzOvADbPAF9wwM72V_UzIzp_tCdEuI74zIc73KQCM3tfgmv59pBy3o6H-AmhQ3A8X5xkclML-wTy9ZSkRSpFapOB_AzSMv8msG0wOLfAl0nDucEuR75dvFUCDdEN554plCC_xwv4sEp4E-SQkT38d58GBVyuV-kHAIbIm6jfWH9renyn-XFwSV2flrP6FLLLwYjazIoWwrDte-mvYbQqsAJK20cl0stVCRVP8Doswwxleuryy-m9YMHBdk56Fad_MVBARVpnjGnjQsz89-scz_kbCbHBCmUoFnMkgLZPhLQJUs10cJBo" charset="UTF-8"></script><link rel="stylesheet" crossorigin="anonymous" href="https://gc.kis.v2.scr.kaspersky-labs.com/E3E8934C-235A-4B0E-825A-35A08381A191/abn/main.css?attr=aHR0cHM6Ly9jb250cmlidXRpb24udXNlcmNvbnRlbnQuZ29vZ2xlLmNvbS9kb3dubG9hZD9jPUNneGlZWEprWDNOMGIzSmhaMlVTVUJJTmNtVnpjRzl1YzJWZlpHRjBZUm9fQ2pCaE9UZ3dZalUyWXpRMk1XRXpNekJsTURBd05qVTNaalZsWm1VNU1URTJaVEF4TnpVd05qTXpPVEl4Tnpaa01UTVNDeElIRU1tbnFvMmhDUmdCJmZpbGVuYW1lPUtsYXNvcl9Zb25ldGltX0FyYWNpX0FyYXl1ei5odG1sJm9waT0xMDMxMzUwNTA"/><style>
+        :root {
+            --bg: #f1f4f9;
+            --header-bg: #182642;
+            --header-text: #ffffff;
+            --header-subtext: #a3b0cc;
+            --card-bg: #ffffff;
+            --card-border: #e0e4ed;
+            --accent-primary: #2e5aac;
+            --accent-primary-dark: #1e4082;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --success-soft: #e4f6eb;
+            --success-text: #1b6e3c;
+            --warn-soft: #fff3dc;
+            --warn-text: #965a0a;
+            --danger-soft: #fde8e8;
+            --danger-solid: #c43a3a;
+            --danger-text: #b02a2a;
+            --neutral-soft: #e8f0fe;
+            --neutral-text: #1e4078;
+            --log-bg: #1c202c;
+            --log-text: #d2dae6;
+            
+            --font-main: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #d1d5db;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: var(--font-main);
+            font-size: 13px; /* Approx 9.5pt */
+            color: var(--text-primary);
+        }
+
+        /* Ana Form Konteyneri */
+        .window {
+            width: 780px;
+            height: 758px;
+            background-color: var(--bg);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            border-radius: 4px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        /* Başlık Çubuğu */
+        .header {
+            height: 64px;
+            background-color: var(--header-bg);
+            padding: 10px 20px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .header-title {
+            color: var(--header-text);
+            font-size: 17px; /* Approx 13pt */
+            font-weight: bold;
+            margin: 0 0 3px 0;
+        }
+        .header-subtitle {
+            color: var(--header-subtext);
+            font-size: 12px;
+            margin: 0;
+        }
+
+        /* Sekme (Tab) Alanı */
+        .tabs-container {
+            margin: 14px 18px 0 18px;
+        }
+        .tab-headers {
+            display: flex;
+            border-bottom: 1px solid var(--card-border);
+            margin-bottom: -1px;
+        }
+        .tab-header {
+            padding: 6px 16px;
+            background-color: var(--bg);
+            border: 1px solid transparent;
+            border-bottom: none;
+            cursor: pointer;
+            margin-right: 2px;
+            color: var(--text-primary);
+            border-radius: 4px 4px 0 0;
+        }
+        .tab-header.active {
+            background-color: var(--card-bg);
+            border-color: var(--card-border);
+            border-bottom-color: var(--card-bg);
+            font-weight: 500;
+        }
+        .tab-content {
+            display: none;
+            height: 205px;
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            padding: 10px;
+            box-sizing: border-box;
+            position: relative;
+            background-color: var(--bg); /* Arka plan sekme içi de gri */
+            border-top: none;
+            border-left: none; border-right: none; border-bottom: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Kart Bileşeni */
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            position: absolute;
+            box-sizing: border-box;
+            border-radius: 2px;
+        }
+        .card-header {
+            font-size: 13px;
+            font-weight: bold;
+            color: var(--accent-primary-dark);
+            margin: 9px 0 0 14px;
+        }
+        .card-separator {
+            height: 1px;
+            background-color: var(--card-border);
+            margin: 6px 14px 10px 14px;
+        }
+
+        /* Buton Bileşeni */
+        .btn {
+            border: 1px solid var(--card-border);
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: var(--font-main);
+            font-size: 13px;
+            box-sizing: border-box;
+            transition: filter 0.2s;
+            border-radius: 2px;
+        }
+        .btn:hover {
+            filter: brightness(0.95);
+        }
+        .btn-bold {
+            font-weight: bold;
+        }
+        .btn-solid {
+            border: none;
+        }
+
+        /* Log Alanı */
+        .log-area {
+            position: absolute;
+            top: 328px;
+            left: 18px;
+            width: 744px;
+            height: 320px;
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            box-sizing: border-box;
+            border-radius: 2px;
+        }
+        .progress-bar {
+            position: absolute;
+            top: 42px;
+            left: 14px;
+            width: 716px;
+            height: 16px;
+            background-color: #e6e6e6;
+            display: none; /* Default hidden */
+        }
+        .progress-fill {
+            height: 100%;
+            background-color: #06b025;
+            width: 45%;
+        }
+        .log-textbox {
+            position: absolute;
+            top: 46px;
+            left: 14px;
+            width: 716px;
+            height: 258px;
+            background-color: var(--log-bg);
+            color: var(--log-text);
+            font-family: Consolas, monospace;
+            font-size: 12.5px;
+            border: 1px solid #000;
+            padding: 5px;
+            box-sizing: border-box;
+            overflow-y: scroll;
+            resize: none;
+            white-space: pre-wrap;
+            line-height: 1.4;
+        }
+
+        /* Alt Durum Çubuğu */
+        .status-bar {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 24px;
+            background-color: var(--bg);
+            border-top: 1px solid var(--card-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 10px;
+            box-sizing: border-box;
+        }
+        .status-text {
+            color: var(--text-secondary);
+        }
+        .signature {
+            color: #a0a8b8;
+            font-style: italic;
+            font-size: 11.5px;
+        }
+
+        /* Form Elemanları (Client Tab) */
+        .input-group {
+            position: absolute;
+            display: flex;
+            align-items: center;
+        }
+        .input-label {
+            width: 172px;
+            color: var(--text-primary);
+        }
+        .input-field {
+            width: 490px;
+            height: 26px;
+            border: 1px solid #7a7a7a;
+            padding: 0 4px;
+            box-sizing: border-box;
+            font-family: var(--font-main);
+            font-size: 13px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="window">
+        <!-- Başlık -->
+        <div class="header">
+            <h1 class="header-title">📁  Çok Amaçlı Klasör Yönetim Aracı</h1>
+            <p class="header-subtitle">v3.2.0   •   Yönetici Modu Aktif   •   WINDOWS-PC</p>
+        </div>
+
+        <!-- Sekmeler -->
+        <div class="tabs-container">
+            <div class="tab-headers">
+                <div class="tab-header active" onclick="openTab(event, 'tab1')">1. Tarama Klasörü</div>
+                <div class="tab-header" onclick="openTab(event, 'tab2')">2. Ortak Klasör (Ana PC)</div>
+                <div class="tab-header" onclick="openTab(event, 'tab3')">3. Diğer PC'den Bağlan</div>
+                <div class="tab-header" onclick="openTab(event, 'tab4')">4. Kurulumu Kaldır</div>
+            </div>
+
+            <!-- SEKME 1: Tarama -->
+            <div id="tab1" class="tab-content active" style="margin-left: -10px; margin-top: -10px; height: 236px;">
+                <div class="card" style="top: 10px; left: 14px; width: 704px; height: 90px;">
+                    <div class="card-header">🖨️  Ağ Üzerinden Tarama Altyapısı</div>
+                    <div class="card-separator"></div>
+                    <button class="btn btn-bold" style="position:absolute; top:40px; left:14px; width:676px; height:42px; background-color: lightgoldenrodyellow; color: var(--text-primary);">
+                        Tarama Klasörünü Kur (C:\Tarama)
+                    </button>
+                </div>
+                
+                <div class="card" style="top: 108px; left: 14px; width: 704px; height: 90px;">
+                    <div class="card-header">⚙️  Eski Nesil Tarayıcılar İçin Güvenlik Ayarları</div>
+                    <div class="card-separator"></div>
+                    <button class="btn btn-bold" style="position:absolute; top:40px; left:14px; width:330px; height:42px; background-color: var(--danger-soft); color: var(--danger-text);">
+                        SMB 1.0 Aç (Önerilmez)
+                    </button>
+                    <button class="btn" style="position:absolute; top:40px; left:360px; width:330px; height:42px; background-color: var(--success-soft); color: var(--success-text);">
+                        SMB 1.0 Kapat (Güvenli)
+                    </button>
+                </div>
+            </div>
+
+            <!-- SEKME 2: Host -->
+            <div id="tab2" class="tab-content" style="margin-left: -10px; margin-top: -10px; height: 236px;">
+                <div class="card" style="top: 10px; left: 14px; width: 704px; height: 90px;">
+                    <div class="card-header">🗄️  Sunucu (Host) Yapılandırması</div>
+                    <div class="card-separator"></div>
+                    <button class="btn btn-bold" style="position:absolute; top:40px; left:14px; width:676px; height:42px; background-color: honeydew; color: var(--text-primary);">
+                        Ortak Havuz Altyapısını Kur (C:\OrtakHavuz)
+                    </button>
+                </div>
+                
+                <div class="card" style="top: 108px; left: 14px; width: 704px; height: 90px;">
+                    <div class="card-header">🔑  Bağlantı Bilgileri Dağıtımı (Bu Oturuma Özel)</div>
+                    <div class="card-separator"></div>
+                    <button class="btn" style="position:absolute; top:40px; left:14px; width:330px; height:42px; background-color: var(--neutral-soft); color: var(--neutral-text);">
+                        🖥️ Bilgisayar Adını Kopyala
+                    </button>
+                    <button class="btn" style="position:absolute; top:40px; left:360px; width:330px; height:42px; background-color: var(--neutral-soft); color: var(--neutral-text);">
+                        🔑 Son Şifreyi Kopyala
+                    </button>
+                </div>
+            </div>
+
+            <!-- SEKME 3: Client -->
+            <div id="tab3" class="tab-content" style="margin-left: -10px; margin-top: -10px; height: 236px;">
+                <div class="card" style="top: 10px; left: 14px; width: 704px; height: 188px;">
+                    <div class="card-header">🌐  Ana Bilgisayara (Host) Bağlantı</div>
+                    <div class="card-separator"></div>
+                    
+                    <div class="input-group" style="top: 48px; left: 18px;">
+                        <div class="input-label">Ana Bilgisayarın Adı:</div>
+                        <input type="text" class="input-field" style="margin-left: -10px;" />
+                    </div>
+                    
+                    <div class="input-group" style="top: 88px; left: 18px;">
+                        <div class="input-label">OrtakErisim Şifresi:</div>
+                        <input type="password" class="input-field" style="margin-left: -10px;" />
+                    </div>
+                    
+                    <button class="btn btn-bold btn-solid" style="position:absolute; top:126px; left:190px; width:490px; height:44px; background-color: var(--accent-primary); color: white;">
+                        🔗 Ortak Havuza Güvenli Bağlan
+                    </button>
+                </div>
+            </div>
+
+            <!-- SEKME 4: Remove -->
+            <div id="tab4" class="tab-content" style="margin-left: -10px; margin-top: -10px; height: 236px;">
+                <div class="card" style="top: 10px; left: 14px; width: 704px; height: 90px;">
+                    <div class="card-header">🧹  Seçmeli Kaldırma (Sadece İlgili Bölümü Siler)</div>
+                    <div class="card-separator"></div>
+                    <button class="btn" style="position:absolute; top:40px; left:14px; width:330px; height:42px; background-color: var(--warn-soft); color: var(--warn-text);">
+                        Tarama Klasörünü Kaldır
+                    </button>
+                    <button class="btn" style="position:absolute; top:40px; left:360px; width:330px; height:42px; background-color: var(--warn-soft); color: var(--warn-text);">
+                        Ortak Havuzu Kaldır
+                    </button>
+                </div>
+                
+                <div class="card" style="top: 108px; left: 14px; width: 704px; height: 90px;">
+                    <div class="card-header">🗑️  Tam Temizlik (Önerilen)</div>
+                    <div class="card-separator"></div>
+                    <button class="btn btn-bold btn-solid" style="position:absolute; top:40px; left:14px; width:676px; height:42px; background-color: var(--danger-solid); color: white;">
+                        Sistemi Orijinal Haline Döndür ve Tamamen Temizle
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Log Alanı -->
+        <div class="log-area">
+            <div class="card-header">🖥️  İşlem Durumu ve Sistem Kayıtları (Log)</div>
+            <div class="card-separator"></div>
+            
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
+            
+            <textarea class="log-textbox" readonly>[14:22:15] [BİLGİ] PowerShell sürümü: 5.1.22621.4391
+[14:22:15] [BİLGİ] Kullanıcı bilgisi: windows-pc dmin
+[14:22:15] [BİLGİ] Sistem başlangıç kontrolü yapılıyor...
+[14:22:15] [BAŞARILI] Sistem hazır. (v3.2.0)</textarea>
+        </div>
+
+        <!-- Alt Durum Çubuğu -->
+        <div class="status-bar">
+            <div class="status-text">Hazır  •  Kullanıcı: ADMIN</div>
+            <div class="signature">Mehmet IŞIK</div>
+        </div>
+    </div>
+
+    <script>
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            
+            // Tüm sekme içeriklerini gizle
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+            
+            // Tüm sekmelerden "active" sınıfını kaldır
+            tablinks = document.getElementsByClassName("tab-header");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+            
+            // Seçilen sekmeyi ve içeriğini aktif yap
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+    </script>
+
+</body>
+</html>
