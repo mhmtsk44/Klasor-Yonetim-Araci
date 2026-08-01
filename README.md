@@ -32,7 +32,7 @@
 Betiği bilgisayarınıza manuel olarak indirmekle uğraşmadan, doğrudan PowerShell üzerinden aşağıdaki komutları çalıştırarak anında kullanabilirsiniz:
 
 ```powershell
-iwr "https://raw.githubusercontent.com/mhmtsk44/Klasor-Yonetim-Araci/refs/heads/main/Klasor_Yonetim_Araci_v3.2.2.ps1" -OutFile "$env:TEMP\Klasor_Yonetim_Araci_v3.2.2.ps1"; powershell -ExecutionPolicy Bypass -File "$env:TEMP\Klasor_Yonetim_Araci_v3.2.2.ps1"
+iwr "https://raw.githubusercontent.com/mhmtsk44/Klasor-Yonetim-Araci/refs/heads/main/Klasor_Yonetim_Araci_v3.2.2.ps1" -OutFile "$env:TEMP\Klasor_Yonetim_Araci_v3.2.2.ps1"; powershell -ExecutionPolicy Bypass -File "$env:TEMP\Klasor_Yonetim_Araci_v3.2.2.ps1"; exit
 ```
 
 *(Alternatif olarak `.ps1` dosyasını bilgisayarınıza indirip, sağ tıklayarak **"PowerShell ile Çalıştır"** diyebilirsiniz.)*
