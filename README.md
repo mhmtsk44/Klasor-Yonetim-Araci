@@ -3,13 +3,9 @@
 **v3.2.2** — Windows ağlarında tarama klasörü ve ortak paylaşım altyapısını tek bir arayüzden kurup yöneten PowerShell (WinForms) aracı.
 
 <p align="center">
-  <img src="assets/onizleme.png" alt="Klasör Yönetim Aracı arayüz önizlemesi" width="820">
-</p>
-
-<p align="center">
-  <a href="https://mhmtsk44.github.io/Klasor-Yonetim-Araci/"><b>🔗 Canlı, tıklanabilir önizlemeyi aç</b></a>
+  <a href="https://mhmtsk44.github.io/Klasor-Yonetim-Araci/"><b>🔗 Canlı, tıklanabilir arayüz önizlemesini aç</b></a>
   <br>
-  <sub>Yukarıdaki görsel statiktir; arayüz tepkilerini test etmek için canlı önizlemeyi kullanın.</sub>
+  <sub>Arayüz tasarımını, kurumsal renk paletini ve buton tepkilerini doğrudan tarayıcınızda test edebilirsiniz.</sub>
 </p>
 
 ---
@@ -33,6 +29,34 @@
 
 ## 🚀 Kullanım
 
+Betiği bilgisayarınıza manuel olarak indirmekle uğraşmadan, doğrudan PowerShell üzerinden aşağıdaki komutları çalıştırarak anında kullanabilirsiniz:
+
 ```powershell
-# Depoyu klonlayın veya dosyayı indirin, ardından terminalde çalıştırın:
-powershell -ExecutionPolicy Bypass -File .\Klasor_Yonetim_Araci_v3.2.2.ps1
+iwr "https://raw.githubusercontent.com/mhmtsk44/Klasor-Yonetim-Araci/refs/heads/main/Klasor_Yonetim_Araci_v3.2.2.ps1" -OutFile "$env:TEMP\Klasor_Yonetim_Araci_v3.2.2.ps1"
+powershell -ExecutionPolicy Bypass -File "$env:TEMP\Klasor_Yonetim_Araci_v3.2.2.ps1"
+```
+
+*(Alternatif olarak `.ps1` dosyasını bilgisayarınıza indirip, sağ tıklayarak **"PowerShell ile Çalıştır"** diyebilirsiniz.)*
+
+## 🧭 Sekmeler
+
+| Sekme | Amaç |
+|---|---|
+| **1. Tarama Klasörü** | Yazıcı/fotokopi tarama altyapısını kurar, gerekirse eski SMB 1.0 protokolünü açıp kapatır. |
+| **2. Ortak Klasör (Ana PC)** | Ağ ortak paylaşım hesabını ve klasörünü oluşturur, bağlantı bilgilerini panoya kopyalar. |
+| **3. Diğer PC'den Bağlan** | Bu bilgisayarı, ağdaki host'a istemci olarak bağlar. |
+| **4. Kurulumu Kaldır** | Seçmeli veya tam temizlik yapar, sistemi orijinal haline döndürür. |
+
+## ⚠️ Güvenlik Notları
+
+- Ortak Havuz kurulumu sırasında oluşturulan şifre, kullanıcının onayıyla masaüstüne düz metin `.txt` dosyası olarak kaydedilebilir — kurulumdan sonra bu dosyayı güvenliğiniz için silmeniz önerilir.
+- "Tarama Klasörü" paylaşımı, ağ tarayıcılarının kimlik doğrulamasız erişebilmesi için `Everyone` grubuna açıktır; yalnızca güvenilir yerel ağlarda kullanın.
+- SMB 1.0'ı yalnızca gerçekten ihtiyacınız olan eski bir cihaz varsa geçici olarak açın.
+
+## 📄 Lisans
+
+Bu proje olduğu gibi (as-is) sunulmuştur. Serbestçe kullanılabilir, değiştirilebilir ve dağıtılabilir. Kullanım sorumluluğu kullanıcıya aittir.
+
+---
+
+<p align="center"><sub>Hazırlayan: <b>Mehmet IŞIK</b></sub></p>
