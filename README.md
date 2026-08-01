@@ -29,13 +29,14 @@
 
 ## 🚀 Kullanım
 
-Betiği bilgisayarınıza manuel olarak indirmekle uğraşmadan, doğrudan PowerShell üzerinden aşağıdaki komutları çalıştırarak anında kullanabilirsiniz:
+Betiği bilgisayarınıza manuel olarak indirmekle uğraşmadan, doğrudan PowerShell üzerinden aşağıdaki komutu çalıştırarak anında kullanabilirsiniz:
 
 ```powershell
-iwr "https://raw.githubusercontent.com/mhmtsk44/Klasor-Yonetim-Araci/refs/heads/main/Klasor_Yonetim_Araci_v3.2.2.ps1" -OutFile "$env:TEMP\Klasor_Yonetim_Araci_v3.2.2.ps1"; powershell -ExecutionPolicy Bypass -File "$env:TEMP\Klasor_Yonetim_Araci_v3.2.2.ps1"; exit
-```
+# ⚠️ Önemli Not (Yönetici Yetkisi):
+# Komutun sorunsuz çalışabilmesi ve gerekli sistem izinlerini alabilmesi için PowerShell'i Yönetici olarak çalıştırmanız gerekmektedir.
+# Bunun için: Başlat menüsüne PowerShell yazın, üzerine sağ tıklayıp "Yönetici olarak çalıştır" (Run as Administrator) seçeneğini seçtikten sonra aşağıdaki komutu yapıştırın:
 
-*(Alternatif olarak `.ps1` dosyasını bilgisayarınıza indirip, sağ tıklayarak **"PowerShell ile Çalıştır"** diyebilirsiniz.)*
+irm [https://raw.githubusercontent.com/mhmtsk44/Klasor-Yonetim-Araci/refs/heads/main/Klasor_Yonetim_Araci.ps1](https://raw.githubusercontent.com/mhmtsk44/Klasor-Yonetim-Araci/refs/heads/main/Klasor_Yonetim_Araci.ps1) | iex
 
 ## 🧭 Sekmeler
 
