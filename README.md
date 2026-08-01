@@ -16,12 +16,6 @@
   <a href="./LICENSE"><img src="https://img.shields.io/badge/lisans-MIT-yellow" alt="Lisans"></a>
 </p>
 
-<p align="center">
-  <b><a href="https://mhmtsk44.github.io/Klasor-Yonetim-Araci/">🔗 Canlı, tıklanabilir arayüz önizlemesini aç</a></b>
-  <br>
-  <sub>Arayüz tasarımını doğrudan tarayıcınızda test edebilirsiniz.</sub>
-</p>
-
 ---
 
 ## Gereksinimler
