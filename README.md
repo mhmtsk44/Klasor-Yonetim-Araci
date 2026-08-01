@@ -3,7 +3,7 @@
 **v3.2.2** — Windows ağlarında tarama klasörü ve ortak paylaşım altyapısını tek bir arayüzden kurup yöneten PowerShell (WinForms) aracı.
 
 <p align="center">
-  <a href="https://mhmtsk44.github.io/Klasor-Yonetim-Araci/"><b>🔗 Canlı, tıklanabilir arayüz önizlemesini aç</b></a>
+  <a href="https://mhmtsk44.github.io/Klasor-Yonetim-Araci/" target="_blank" rel="noopener noreferrer"><b>🔗 Canlı, tıklanabilir arayüz önizlemesini aç</b></a>
   <br>
   <sub>Arayüz tasarımını, kurumsal renk paletini ve buton tepkilerini doğrudan tarayıcınızda test edebilirsiniz.</sub>
 </p>
