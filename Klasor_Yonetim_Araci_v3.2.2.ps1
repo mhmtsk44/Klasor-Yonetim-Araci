@@ -25,7 +25,7 @@ $Config = @{
         LogFolder      = "$env:ProgramData\KlasorYonetim"
         SettingsFile   = "$env:ProgramData\KlasorYonetim\Settings.json"
         PowerBackup    = "$env:ProgramData\KlasorYonetim\power_backup.json"
-        FirewallBackup = "$env:ProgramData\KlasorYonetimirewall_backup.json"
+        FirewallBackup = "$env:ProgramData\KlasorYonetim\Firewall_backup.json"
     }
     UI = @{
         FontName     = "Segoe UI Emoji"
