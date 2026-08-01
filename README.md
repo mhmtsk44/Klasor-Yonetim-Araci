@@ -1,62 +1,143 @@
 # 📁 Çok Amaçlı Klasör Yönetim Aracı
 
-**v3.2.2** — Windows ağlarında tarama klasörü ve ortak paylaşım altyapısını tek bir arayüzden kurup yöneten PowerShell (WinForms) aracı.
+> **v3.2.2** — Windows ağlarında tarama klasörü ve ortak paylaşım altyapısını tek bir arayüzden kurup yöneten PowerShell (WinForms) aracı.
 
 <p align="center">
-  <b><a href="https://mhmtsk44.github.io/Klasor-Yonetim-Araci/">🔗 Canlı, tıklanabilir arayüz önizlemesini aç</a></b>
+  <a href="https://mhmtsk44.github.io/Klasor-Yonetim-Araci/">
+    <img src="https://img.shields.io/badge/Canlı%20Arayüz-Önizleme-0d6efd?style=for-the-badge" alt="Canlı Önizleme">
+  </a>
+</p>
+
+<p align="center">
+  <b>
+    <a href="https://mhmtsk44.github.io/Klasor-Yonetim-Araci/">
+      🔗 Canlı, tıklanabilir arayüz önizlemesini aç
+    </a>
+  </b>
   <br>
   <sub>Arayüz tasarımını, kurumsal renk paletini ve buton tepkilerini doğrudan tarayıcınızda test edebilirsiniz.</sub>
 </p>
 
 ---
 
-## ✨ Özellikler
+# ✨ Özellikler
 
-- **Tarama Klasörü** — Ağdaki yazıcı/fotokopi makinelerinin tarayabileceği, gizli (`Tarama$`) bir SMB paylaşımını tek tıkla kurar. Gerekli güvenlik duvarı kurallarını, ACL izinlerini ve uyku modu ayarlarını otomatik yapılandırır.
-- **Ortak Klasör (Host)** — Ayrı, sınırlı yetkili bir `OrtakErisim` kullanıcı hesabıyla güvenli bir dosya paylaşım havuzu (`C:\OrtakHavuz`) oluşturur.
-- **Diğer PC'den Bağlan** — Ağdaki host bilgisayara, kimlik bilgilerini Windows Kimlik Bilgisi Yöneticisi'ne kaydederek güvenli şekilde bağlanır.
-- **Kurulumu Kaldır** — Seçmeli veya tam temizlik: paylaşımları, hesabı, masaüstü kısayollarını ve değiştirilen sistem ayarlarını (güç profili, güvenlik duvarı kuralları) orijinal haline geri döndürür.
-- **Kriptografik Şifre Üretici** — `System.Security.Cryptography.RandomNumberGenerator` ve Fisher-Yates karıştırma ile güçlü, tahmin edilemez şifreler üretir.
-- **Modern Arayüz ve Uyum** — "Segoe UI Emoji" fontu ve UTF-8 (BOM) kodlaması ile Windows 10/11 üzerinde tam renkli, sorunsuz emoji/simge gösterimi sunar. Eski JIT çizim hatalarından (`op_Subtraction`) arındırılmıştır.
-- **Kalıcı Loglama** — Tüm işlemler zaman damgalı olarak hem uygulama içi konsolda hem de `%ProgramData%\KlasorYonetim\Program.log` dosyasında tutulur.
-- **Otomatik Yönetici Yükseltme** — Tek dosyalık, bağımlılıksız `.ps1` betiği, yönetici yetkisi eksikse kendini otomatik olarak yeniden başlatır.
+### 📂 Tarama Klasörü
+- Ağdaki yazıcı/fotokopi cihazlarının tarayabileceği gizli (`Tarama$`) SMB paylaşımını tek tıkla oluşturur.
+- Güvenlik duvarı kurallarını otomatik yapılandırır.
+- NTFS ve paylaşım izinlerini ayarlar.
+- Güç profili ve uyku modu ayarlarını gerekli şekilde düzenler.
 
-## 🖥️ Gereksinimler
+### 🗂️ Ortak Klasör (Host)
+- Ayrı ve sınırlı yetkili **OrtakErisim** kullanıcı hesabı oluşturur.
+- `C:\OrtakHavuz` paylaşımını güvenli şekilde kurar.
+- Paylaşım bilgilerini kolayca kopyalayabilirsiniz.
 
-- Windows 10/11 veya Windows Server (SMB ve `NetSecurity` modüllerinin bulunduğu bir sürüm)
-- PowerShell 5.1 veya üzeri
-- Yönetici yetkisi
+### 🌐 Diğer PC'den Bağlan
+- Ağdaki Host bilgisayara güvenli şekilde bağlanır.
+- Kimlik bilgilerini Windows Kimlik Bilgisi Yöneticisi'ne kaydeder.
+- Yeniden giriş gerektirmeden paylaşımı kullanabilirsiniz.
 
-## 🚀 Kullanım
+### 🧹 Kurulumu Kaldır
+- Seçmeli veya tam kaldırma yapabilir.
+- Oluşturulan kullanıcıyı kaldırır.
+- Paylaşımları siler.
+- Masaüstü kısayollarını temizler.
+- Güvenlik duvarı ve güç ayarlarını eski haline getirir.
 
-- Betiği bilgisayarınıza manuel olarak indirmekle uğraşmadan, doğrudan PowerShell üzerinden aşağıdaki komutu çalıştırarak anında kullanabilirsiniz:
+### 🔐 Güçlü Şifre Üretici
+- `System.Security.Cryptography.RandomNumberGenerator`
+- Fisher-Yates karıştırma algoritması
+- Kriptografik olarak güvenli ve tahmin edilmesi zor şifre üretimi
 
-```powershell
-- ⚠️ Önemli Not (Yönetici Yetkisi):
-- Komutun sorunsuz çalışabilmesi ve gerekli sistem izinlerini alabilmesi için PowerShell'i Yönetici olarak çalıştırmanız gerekmektedir.
-- Bunun için: Başlat menüsüne PowerShell yazın, üzerine sağ tıklayıp "Yönetici olarak çalıştır" (Run as Administrator) seçeneğini seçtikten sonra aşağıdaki komutu yapıştırın:
+### 🎨 Modern Arayüz
+- Windows 10/11 uyumlu WinForms arayüzü
+- **Segoe UI Emoji** desteği
+- UTF-8 (BOM) kodlama
+- Renkli emoji desteği
+- Eski WinForms çizim hatalarından (`op_Subtraction`) arındırılmış yapı
 
-irm [https://raw.githubusercontent.com/mhmtsk44/Klasor-Yonetim-Araci/refs/heads/main/Klasor_Yonetim_Araci.ps1](https://raw.githubusercontent.com/mhmtsk44/Klasor-Yonetim-Araci/refs/heads/main/Klasor_Yonetim_Araci.ps1) | iex
+### 📝 Kalıcı Loglama
+Tüm işlemler hem uygulama içerisindeki konsola hem de aşağıdaki log dosyasına yazılır:
 
-## 🧭 Sekmeler
+```text
+%ProgramData%\KlasorYonetim\Program.log
+```
 
-| Sekme | Amaç |
-|---|---|
-| **1. Tarama Klasörü** | Yazıcı/fotokopi tarama altyapısını kurar, gerekirse eski SMB 1.0 protokolünü açıp kapatır. |
-| **2. Ortak Klasör (Ana PC)** | Ağ ortak paylaşım hesabını ve klasörünü oluşturur, bağlantı bilgilerini panoya kopyalar. |
-| **3. Diğer PC'den Bağlan** | Bu bilgisayarı, ağdaki host'a istemci olarak bağlar. |
-| **4. Kurulumu Kaldır** | Seçmeli veya tam temizlik yapar, sistemi orijinal haline döndürür. |
-
-## ⚠️ Güvenlik Notları
-
-- Ortak Havuz kurulumu sırasında oluşturulan şifre, kullanıcının onayıyla masaüstüne düz metin `.txt` dosyası olarak kaydedilebilir — kurulumdan sonra bu dosyayı güvenliğiniz için silmeniz önerilir.
-- "Tarama Klasörü" paylaşımı, ağ tarayıcılarının kimlik doğrulamasız erişebilmesi için `Everyone` grubuna açıktır; yalnızca güvenilir yerel ağlarda kullanın.
-- SMB 1.0'ı yalnızca gerçekten ihtiyacınız olan eski bir cihaz varsa geçici olarak açın.
-
-## 📄 Lisans
-
-Bu proje [MIT Lisansı](./LICENSE) ile lisanslanmıştır — serbestçe kullanabilir, değiştirebilir ve dağıtabilirsiniz; yazılım "olduğu gibi", herhangi bir garanti verilmeksizin sunulur.
+### ⚡ Otomatik Yönetici Yetkisi
+- Tek dosyalık PowerShell betiği
+- Yönetici değilse kendini otomatik olarak Yönetici olarak yeniden başlatır.
 
 ---
 
-<p align="center"><sub>Hazırlayan: <b>Mehmet IŞIK</b></sub></p>
+# 🖥️ Gereksinimler
+
+- Windows 10
+- Windows 11
+- Windows Server (SMB ve NetSecurity modülü bulunan sürümler)
+- PowerShell 5.1 veya üzeri
+- Yönetici Yetkisi
+
+---
+
+# 🚀 Kurulum
+
+## Yönetici olarak PowerShell'i açın
+
+Başlat menüsüne **PowerShell** yazın.
+
+Ardından:
+
+> Sağ tıklayın → **Yönetici olarak çalıştır**
+
+Sonrasında aşağıdaki komutu çalıştırın.
+
+```powershell
+irm "https://raw.githubusercontent.com/mhmtsk44/Klasor-Yonetim-Araci/refs/heads/main/Klasor_Yonetim_Araci.ps1" | iex
+```
+
+---
+
+# 🧭 Sekmeler
+
+| Sekme | Açıklama |
+|-------|----------|
+| 📂 **1. Tarama Klasörü** | Yazıcı/Fotokopi tarama altyapısını kurar. Gerekirse SMB 1.0'ı açıp kapatabilir. |
+| 🗂️ **2. Ortak Klasör (Ana PC)** | Ortak paylaşım hesabını ve klasörünü oluşturur. Bağlantı bilgilerini panoya kopyalar. |
+| 🌐 **3. Diğer PC'den Bağlan** | İstemci bilgisayarı Host bilgisayara bağlar. |
+| 🧹 **4. Kurulumu Kaldır** | Sistemi eski haline döndürür. |
+
+---
+
+# ⚠️ Güvenlik Notları
+
+- Kurulum sırasında oluşturulan parola istenirse masaüstüne düz metin `.txt` dosyası olarak kaydedilebilir.
+  - Kurulum tamamlandıktan sonra bu dosyanın silinmesi önerilir.
+
+- **Tarama Klasörü** paylaşımı bazı tarayıcı cihazlarının çalışabilmesi için **Everyone** grubuna açıktır.
+  - Yalnızca güvenilir yerel ağlarda kullanılması tavsiye edilir.
+
+- SMB 1.0 yalnızca eski cihazlar için gereklidir.
+  - İhtiyaç kalmadığında kapatılması önerilir.
+
+---
+
+# 📄 Lisans
+
+Bu proje **MIT Lisansı** ile lisanslanmıştır.
+
+İsteyen herkes;
+
+- Kullanabilir
+- Değiştirebilir
+- Dağıtabilir
+- Ticari projelerde kullanabilir
+
+Yazılım **olduğu gibi (AS IS)** sunulmaktadır ve herhangi bir garanti verilmez.
+
+---
+
+<p align="center">
+  <b>Hazırlayan</b><br>
+  Mehmet IŞIK
+</p>
