@@ -1,4 +1,4 @@
-﻿<#
+<#
 .SYNOPSIS
 Çok Amaçlı Klasör Yönetim Aracı
 Hazırlayan: Mehmet IŞIK
@@ -229,8 +229,8 @@ function New-SafeSmbShare {
         return
     }
     $cmd = "net share $Name=`"$Path`""
-    if ($ChangeAccess) { $cmd += " /GRANT:$ChangeAccess,CHANGE" }
-    if ($FullAccess) { $cmd += " /GRANT:$FullAccess,FULL" }
+    if ($ChangeAccess) { $cmd += " /GRANT:`"$ChangeAccess`",CHANGE" }
+    if ($FullAccess) { $cmd += " /GRANT:`"$FullAccess`",FULL" }
     cmd.exe /c $cmd | Out-Null
 }
 
@@ -280,49 +280,49 @@ function Test-PasswordComplexity {
     return $result
 }
 
+function Get-SecureRandomComplexPassword {
+    $charsUpper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZÇĞIİÖŞÜ'
+    $charsLower = 'abcdefghijklmnopqrstuvwxyzçğıöşü'
+    $charsNum   = '0123456789'
+    $charsSym   = '!@#$%&*'
+    $allChars   = $charsUpper + $charsLower + $charsNum + $charsSym
+
+    $rng = [System.Security.Cryptography.RandomNumberGenerator]::Create()
+    try {
+        $bytes = New-Object byte[] 14
+        $rng.GetBytes($bytes) # ÖNCE doldur
+
+        $passChars = @(
+            $charsUpper[[int]$bytes[0]  % $charsUpper.Length],
+            $charsUpper[[int]$bytes[1]  % $charsUpper.Length],
+            $charsLower[[int]$bytes[2]  % $charsLower.Length],
+            $charsLower[[int]$bytes[3]  % $charsLower.Length],
+            $charsLower[[int]$bytes[4]  % $charsLower.Length],
+            $charsLower[[int]$bytes[5]  % $charsLower.Length],
+            $charsNum[[int]$bytes[6]    % $charsNum.Length],
+            $charsNum[[int]$bytes[7]    % $charsNum.Length],
+            $charsSym[[int]$bytes[8]    % $charsSym.Length],
+            $charsSym[[int]$bytes[9]    % $charsSym.Length]
+        )
+        for ($i = 10; $i -lt 14; $i++) {
+            $passChars += $allChars[[int]$bytes[$i] % $allChars.Length]
+        }
+
+        # Fisher-Yates ile kriptografik karıştırma
+        $shuffleByte = New-Object byte[] 1
+        for ($i = $passChars.Count - 1; $i -gt 0; $i--) {
+            $rng.GetBytes($shuffleByte)
+            $j = [int]$shuffleByte[0] % ($i + 1)
+            $tmp = $passChars[$i]; $passChars[$i] = $passChars[$j]; $passChars[$j] = $tmp
+        }
+        return -join $passChars
+    } finally {
+        $rng.Dispose()
+    }
+}
+
 function Show-PasswordInputDialog {
     param([string]$Prompt, [string]$UserNameToAvoid = "")
-    
-    function Get-SecureRandomComplexPassword {
-        $charsUpper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZÇĞIİÖŞÜ'
-        $charsLower = 'abcdefghijklmnopqrstuvwxyzçğıöşü'
-        $charsNum   = '0123456789'
-        $charsSym   = '!@#$%&*'
-        $allChars   = $charsUpper + $charsLower + $charsNum + $charsSym
-
-        $rng = [System.Security.Cryptography.RandomNumberGenerator]::Create()
-        try {
-            $bytes = New-Object byte[] 14
-            $rng.GetBytes($bytes) # ÖNCE doldur
-
-            $passChars = @(
-                $charsUpper[[int]$bytes[0]  % $charsUpper.Length],
-                $charsUpper[[int]$bytes[1]  % $charsUpper.Length],
-                $charsLower[[int]$bytes[2]  % $charsLower.Length],
-                $charsLower[[int]$bytes[3]  % $charsLower.Length],
-                $charsLower[[int]$bytes[4]  % $charsLower.Length],
-                $charsLower[[int]$bytes[5]  % $charsLower.Length],
-                $charsNum[[int]$bytes[6]    % $charsNum.Length],
-                $charsNum[[int]$bytes[7]    % $charsNum.Length],
-                $charsSym[[int]$bytes[8]    % $charsSym.Length],
-                $charsSym[[int]$bytes[9]    % $charsSym.Length]
-            )
-            for ($i = 10; $i -lt 14; $i++) {
-                $passChars += $allChars[[int]$bytes[$i] % $allChars.Length]
-            }
-
-            # Fisher-Yates ile kriptografik karıştırma
-            $shuffleByte = New-Object byte[] 1
-            for ($i = $passChars.Count - 1; $i -gt 0; $i--) {
-                $rng.GetBytes($shuffleByte)
-                $j = [int]$shuffleByte[0] % ($i + 1)
-                $tmp = $passChars[$i]; $passChars[$i] = $passChars[$j]; $passChars[$j] = $tmp
-            }
-            return -join $passChars
-        } finally {
-            $rng.Dispose()
-        }
-    }
 
     $dlg = New-Object System.Windows.Forms.Form
     $dlg.Text = "Şifre Belirleyin"
@@ -415,15 +415,19 @@ function Backup-PowerSettingsIfNeeded {
         function Get-PowerSettingValues {
             param([string]$SubCommand)
             $output = powercfg /query SCHEME_CURRENT SUB_SLEEP $SubCommand 2>$null
-            $values = @()
+            $acValue = $null
+            $dcValue = $null
             foreach ($line in $output) {
-                if ($line -match "0x([0-9a-fA-F]+)") {
-                    $values += [Convert]::ToInt32($matches[1], 16)
+                if ($line -match "AC.*:\s*(0x[0-9a-fA-F]+)") {
+                    $acValue = [Convert]::ToInt32($matches[1], 16)
+                }
+                elseif ($line -match "DC.*:\s*(0x[0-9a-fA-F]+)") {
+                    $dcValue = [Convert]::ToInt32($matches[1], 16)
                 }
             }
             return [PSCustomObject]@{
-                AC = if ($values.Count -ge 2) { $values[$values.Count - 2] } else { $null }
-                DC = if ($values.Count -ge 1) { $values[$values.Count - 1] } else { $null }
+                AC = $acValue
+                DC = $dcValue
             }
         }
 
