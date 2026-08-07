@@ -30,7 +30,8 @@
 3. Şu komutu yapıştırıp Enter'a basın:
 
 ```powershell
-irm "https://raw.githubusercontent.com/mhmtsk44/Klasor-Yonetim-Araci/refs/heads/main/Klasor_Yonetim_Araci.ps1" | iex
+$c = (New-Object Net.WebClient).DownloadString("https://raw.githubusercontent.com/mhmtsk44/Klasor-Yonetim-Araci/refs/heads/main/Klasor_Yonetim_Araci.ps1")
+Invoke-Expression $c
 ```
 
 ---
